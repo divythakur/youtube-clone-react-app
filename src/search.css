@@ -32,3 +32,43 @@
     top:0%;
     margin-top: 10px;
 }
+.comment{
+    left: 37%;
+    position: absolute;
+    top: 108%;
+}
+.sub{
+    position:absolute;
+    top: 124%;
+    left: 40%;
+}
+.comment-box{
+    position: relative;
+    margin-top: 55px;
+
+    
+}
+#inner{
+    position: absolute;
+    left: 42px;
+    margin-top: -59px;
+}
+
+.fa fa-user{
+    font-size: xx-large;
+}
+#hey{
+    margin-left: 40px;
+}
+#outer{
+
+}
+#logo{
+    font-size: xx-large;
+}
+.comment1{
+    left: 37%;
+    position: absolute;
+    top: 113%;
+
+}

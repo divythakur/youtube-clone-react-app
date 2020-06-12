@@ -2,26 +2,14 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import data from './data.json'
-
-import { withStyles } from '@material-ui/core/styles';
-
 import FormControl from '@material-ui/core/FormControl'
 import { InputLabel, Input, Button } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography'
 import TextField from '@material-ui/core/TextField';
 import './search.css'
-import YouTube from 'react-youtube'
-import GridList from '@material-ui/core/GridList';
-import GridListTile from '@material-ui/core/GridListTile';
-import GridListTileBar from '@material-ui/core/GridListTileBar';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import IconButton from '@material-ui/core/IconButton';
 
 const trending = data.items;
 var count =0;
-var i=0;
-
-
+var incre=0;
 class Search extends Component {
     constructor() {
         super();
@@ -37,18 +25,16 @@ class Search extends Component {
             name: "",
             comment: "",
             submitpresses: "false",
-            trendingtitle: "Trending Nakhra (Full Video) | Amrit Maan ft. Ginni Kapoor | Intense || Latest Songs 2018"
-
-
-
-        }
-
-    }
+            trendingtitle: "Trending Nakhra (Full Video) | Amrit Maan ft. Ginni Kapoor | Intense || Latest Songs 2018",
+    
+         }
+      }
     searchChangeHandler = (e) => {
         this.setState({ searchitem: e.target.value })
     }
 
     testHandler = () => {
+        incre=0;
         var xhr = new XMLHttpRequest();
 
         var u1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&order=viewCount&q="
@@ -62,9 +48,11 @@ class Search extends Component {
         let that = this;
         xhr.onreadystatechange = function () {
             if (this.readyState == 4) {
+                
                 that.setState({ details: JSON.parse(this.responseText).items });
                 that.setState({ success: "true" });
                 var temp = that.state.details;
+               // console.log(this.state.jk);
 
                 if (temp.length === 0) {
                     that.setState({ searchpress: "false" });
@@ -87,9 +75,9 @@ class Search extends Component {
         console.log(t);
         this.setState({ videoId: id });
         this.setState({ title: t });
-        document.getElementById('contents').innerHTML="";
-        document.getElementById('jj').innerHTML="";
-        for(var i=0;i<count-1;i++)
+       // document.getElementById('contents').innerHTML="";
+        //document.getElementById('jj').innerHTML="";
+        for(var i=0;i<count;i++)
         {
              var df=document.getElementsByClassName("secondarycomments")[0];
              df.remove();
@@ -97,22 +85,17 @@ class Search extends Component {
              
        count=0;
         this.setState({submitpresses:"false"});
-        
-
-
-
-
     }
     videoChange2=(id,t)=>{
         
         this.setState({ trendingvideoId: id });
         this.setState({ trendingtitle: t });
-        document.getElementById('contents').innerHTML="";
-        document.getElementById('jj').innerHTML="";
+       // document.getElementById('contents').innerHTML="";
+        //document.getElementById('jj').innerHTML="";
         console.log(count);
         
 
-        for(var i=0;i<count-1;i++)
+        for(var i=0;i<count;i++)
         {
              var df=document.getElementsByClassName("secondarycomments")[0];
              df.remove();
@@ -132,7 +115,7 @@ class Search extends Component {
         console.log(e);
         var f = e;
         count=count+1;
-
+       var y="";
 
         var t = document.getElementById("inputboxname");
         t.value = t.defaultValue;
@@ -142,9 +125,8 @@ class Search extends Component {
 
         var namedummy = this.state.name;
         var commentdummy = this.state.comment;
-
-        if (this.state.submitpresses === "true") {
-            var ele='<div class="secondarycomments">'+
+           if(this.state.name != "")
+           { var ele='<div class="secondarycomments">'+
             '<div id="hey">'+
              '<div class="comment-box">'+
               '  <i class="fa fa-user" aria-hidden="true" id="logo"></i>' +
@@ -159,15 +141,12 @@ class Search extends Component {
         '</div><br/>'+
         '</div>'
         document.getElementsByName(f)[0].innerHTML= document.getElementsByName(f)[0].innerHTML+ele;
-            
+}            
+        this.setState({name:y});
 
 
-        }
-        else {
-            this.setState({ submitpresses: "true" });
-            document.getElementById("contents").innerHTML = namedummy;
-            document.getElementById("jj").innerHTML = commentdummy;
-            }
+        
+      
 
     }
 
@@ -188,6 +167,10 @@ class Search extends Component {
     }
     componentDidMount() {
         this.setState({ submitpresses: "false" });
+        console.log("i am called");
+    }
+    componentWillMount(){
+        console.log("will is called")
     }
     render() {
         const { classes } = this.props;
@@ -210,7 +193,7 @@ class Search extends Component {
 
                         </div>
                         <form>
-                            <InputLabel htmlFor="name" style={{ marginLeft: "25px" }}>NAME</InputLabel>
+                            <InputLabel htmlFor="name" style={{ marginLeft: "25px",marginTop: "41px;" }}>NAME</InputLabel>
                             <Input type="text" id="inputboxname" style={{ marginLeft: "25px" }} onChange={this.onnameChangeHandler} />
                             <div className="comment">
                                 <InputLabel htmlFor="comment">Comment here</InputLabel>
@@ -222,10 +205,11 @@ class Search extends Component {
                                 <Button variant="outlined" color="primary" style={{ marginLeft: "61px" }} onClick={this.onCancelHandler}>Cancel</Button>
                             </div>
 
+
                         </form>
                         <br/><br/>
                         <div  name={this.state.videoId} id="outer">
-                            <div id="hey">
+                            {/* <div id="hey">
 
 
                                 <div className="comment-box">
@@ -238,7 +222,7 @@ class Search extends Component {
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> */}
 
 
                         </div>
@@ -249,19 +233,26 @@ class Search extends Component {
                 {this.state.success === "true" && this.state.searchpress === "true" &&
 
                     <section id="grid">
-                        {this.state.details.map((tile) => (
-                            <div >
-                                <section style={{ position: "relative", top: "0px" }}>
+                        
+                        {this.state.details.filter(til=> til.id.videoId != this.state.videoId).map((tile) =>{ 
+                            incre=incre+1;
+                            {console.log("out"+incre)}
+                            return(
+                            <div className={"inner" + incre}>
+                           {  console.log("inner"+incre)}                 
+               <section style={{ position: "relative", top: "0px" }}>
                                     <p style={{ width: "242px", position: "absolute", left: "231px", marginTop: "39px" }}> <span style={{ position: "absolute", marginLeft: "17px", fontWeight: "bolder" }}>{tile.snippet.title}<span style={{ fontWeight: "lighter", color: "grey" }}><br /><br />{tile.snippet.channelTitle}</span></span></p>
 
 
                                     <br /><br />
                                 </section>
-                                <img id={tile.id.videoId} src={tile.snippet.thumbnails.high.url} style={{ height: "177px" }} onClick={this.videoChange.bind(this, tile.id.videoId, tile.snippet.title)} />
-
+                                <img id={tile.id.videoId} src={tile.snippet.thumbnails.high.url} style={{ height: "177px" }} onClick={this.videoChange.bind(this, tile.id.videoId, tile.snippet.title,incre)} />
+                                
 
                             </div>
-                        ))}
+                        )}
+                        
+                        )}
 
                     </section>
                 }
@@ -296,7 +287,7 @@ class Search extends Component {
                         </form>
                         <br/><br/>
                         <div  name={this.state.videoId} id="outer">
-                            <div id="hey">
+                            {/* <div id="hey">
 
 
                                 <div className="comment-box">
@@ -309,7 +300,7 @@ class Search extends Component {
                                     </div>
 
                                 </div>
-                            </div>
+                            </div> */}
 
 
                         </div>
@@ -320,7 +311,7 @@ class Search extends Component {
                 {this.state.success === "false" &&
 
                     <section id="grid">
-                        {trending.map((tile) => (
+                        {trending.filter(til => til.id.videoId != this.state.trendingvideoId ).map((tile) => (
                             <div >
                                 <section style={{ position: "relative", top: "0px" }}>
                                     <p style={{ width: "242px", position: "absolute", left: "231px", marginTop: "39px" }}> <span style={{ position: "absolute", marginLeft: "17px", fontWeight: "bolder" }}>{tile.snippet.title}<span style={{ fontWeight: "lighter", color: "grey" }}><br /><br />{tile.snippet.channelTitle}</span></span></p>

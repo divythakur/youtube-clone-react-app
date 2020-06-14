@@ -52,7 +52,6 @@ class Search extends Component {
                 that.setState({ details: JSON.parse(this.responseText).items });
                 that.setState({ success: "true" });
                 var temp = that.state.details;
-               // console.log(this.state.jk);
 
                 if (temp.length === 0) {
                     that.setState({ searchpress: "false" });
@@ -75,8 +74,7 @@ class Search extends Component {
         console.log(t);
         this.setState({ videoId: id });
         this.setState({ title: t });
-       // document.getElementById('contents').innerHTML="";
-        //document.getElementById('jj').innerHTML="";
+      
         for(var i=0;i<count;i++)
         {
              var df=document.getElementsByClassName("secondarycomments")[0];
@@ -90,8 +88,7 @@ class Search extends Component {
         
         this.setState({ trendingvideoId: id });
         this.setState({ trendingtitle: t });
-       // document.getElementById('contents').innerHTML="";
-        //document.getElementById('jj').innerHTML="";
+      
         console.log(count);
         
 
@@ -100,16 +97,8 @@ class Search extends Component {
              var df=document.getElementsByClassName("secondarycomments")[0];
              df.remove();
         }
-               
-
-        
-
         this.setState({submitpresses:"false"});
         count=0;
-        
-
-
-
     }
     onCommentHandler = (e) => {
         console.log(e);
@@ -209,21 +198,7 @@ class Search extends Component {
                         </form>
                         <br/><br/>
                         <div  name={this.state.videoId} id="outer">
-                            {/* <div id="hey">
-
-
-                                <div className="comment-box">
-                                    <i className="fa fa-user" aria-hidden="true" style={{fontSize:"xx-large"}}></i>
-                                    <div id="inner" >
-
-                                        <span  > <h3 id="contents"></h3>
-                                            <p id="jj"></p>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div> */}
-
+                           
 
                         </div>
 
@@ -287,20 +262,7 @@ class Search extends Component {
                         </form>
                         <br/><br/>
                         <div  name={this.state.videoId} id="outer">
-                            {/* <div id="hey">
-
-
-                                <div className="comment-box">
-                                    <i className="fa fa-user" aria-hidden="true" style={{fontSize:"xx-large"}}></i>
-                                    <div id="inner" >
-
-                                        <span  > <h3 id="contents"></h3>
-                                            <p id="jj"></p>
-                                        </span>
-                                    </div>
-
-                                </div>
-                            </div> */}
+                           
 
 
                         </div>

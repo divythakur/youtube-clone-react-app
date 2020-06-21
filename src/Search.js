@@ -39,7 +39,7 @@ class Search extends Component {
 
         var u1 = "https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=15&order=viewCount&q="
         var u2 = this.state.searchitem;
-        var u3 = "&type=video&videoDefinition=high&key=AIzaSyCZmSRawoZR94g5_-mr3UNY7PS4d33hPro";
+        var u3 = "&type=video&videoDefinition=high&key=AIzaSyBiT-qsrXD3k71xsZKrNvCfrvgcXUVxdGY";
         xhr.open('Get', u1 + u2 + u3);
         xhr.setRequestHeader("Cache-Control", "no-cache");
         xhr.setRequestHeader("Content-Type", "application/json");
